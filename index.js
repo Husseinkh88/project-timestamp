@@ -27,6 +27,16 @@ app.get("/api/hello", function (req, res) {
 
 // Tests 
 
+app.get("/api" , (req , res)=>{
+
+res.json({
+  "unix" : new Date().getTime(),
+  "utc" : new Date().toUTCString()
+
+      })
+
+});
+
 app.get("/api/:date" , (req, res)=>{
 
 let date = req.params.date;
@@ -37,7 +47,9 @@ if(!isNaN(date)){
 
   if(new Date(date) == "Invalid Date"){
 
-  res.send("Invalid Date")
+  res.json({
+    "error" : "Invalid Date"
+          })
   }else{
 
   res.json({
@@ -45,19 +57,7 @@ if(!isNaN(date)){
     "utc" : new Date(date).toUTCString()
           })
   }
-
-
-
-
-
-
-
-
-
-
-
-
-})
+});
 
 
 
@@ -65,3 +65,4 @@ if(!isNaN(date)){
 var listener = app.listen(process.env.PORT || 3000, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
+
